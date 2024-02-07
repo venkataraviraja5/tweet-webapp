@@ -1,0 +1,47 @@
+.post{
+    height: auto;
+    background-color: antiquewhite;
+    width: 500px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.comment-section{
+    display: flex;
+    gap: 20px;
+}
+
+.text-dec{
+    text-decoration: none;
+    color: inherit;
+}
+
+.postcard{
+    background-color: aqua;
+    width: 100%;
+}
+.postcard-head{
+    display: flex;
+    justify-content: space-between;
+}
+.postcard-date{
+    display: flex;
+    gap: 20px;
+}
+p:hover{
+    cursor: pointer;
+}
+
+.link{
+ text-decoration: none;
+ color: inherit;
+}
+
+
+
+@media screen and (max-width: 430px) {
+    .post{
+        width: 45vh;
+    }
+  }

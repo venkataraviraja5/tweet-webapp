@@ -1,0 +1,30 @@
+.postdetailspage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.userdetails{
+    height: 100px;
+    width: 500px;
+    background-color: rgb(231, 241, 245);
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.username{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.follow_unfollow{
+    display: flex;
+    gap: 20px;
+}
+
+@media screen and (max-width: 320px) {
+    .userdetails{
+       width: 100%;
+    }
+    
+  }

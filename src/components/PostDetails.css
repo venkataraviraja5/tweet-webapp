@@ -1,0 +1,43 @@
+.postDetailsPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.postDetailsCard{
+    height: auto ;
+    padding: 10px;
+    background-color: rgb(231, 241, 245);
+    width: 500px;
+    margin-top: 20px;
+}
+
+.username-date{
+    display: flex;
+    gap: 20px;
+}
+.comment{
+    height: auto;
+    width: 300px;
+    background-color: lightblue;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 430px) {
+    .postDetailsCard{
+        width: 100%;
+    }
+
+    .commentbox{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+    
+  }
