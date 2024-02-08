@@ -3,34 +3,29 @@ const Posts = require("../models/post")
 
 exports.profileDetails = async(req,res,next) =>{
     const {id}= req.params
-    console.log(id)
-    if(id){
-            const userExists = await User.findById({_id:id})
+   // console.log(id)
+   try {
+    if (id) {
+        const userExists = await User.findById({ _id: id });
 
-            if(userExists){
-                  //console.log(userExists.posts)
-                  const postsPromises = userExists.posts.map((postId) => {
-                    return Posts.findById(postId);
-                  });
-            
-                  const posts = await Promise.all(postsPromises);
+        if (!userExists) {
+            return res.status(404).json({ result: "User not found" });
+        }
 
-                  //console.log(posts)
-            
-                  res.status(200).json({ posts: posts,user:userExists});
-            }
-            else{
-                //console.log("user not found")
-                res.json({result:"post fetch Failed"})
-            }
-      
+        const postsPromises = userExists.posts.map((postId) => {
+            return Posts.findById(postId);
+        });
+
+        const posts = await Promise.all(postsPromises);
+
+        return res.status(200).json({ posts: posts, user: userExists });
+    } else {
+        return res.status(400).json({ result: "Profile ID not provided" });
     }
-    else if(id === undefined){
-        res.json({result:"undefined"})
-    }
-    else{
-        res.json({result:"profile Deosnt Fetch"})
-    }
+} catch (error) {
+   //console.error("Error fetching user and posts:", error.message);
+    return res.status(500).json({ result: "Internal server error" });
+}
 }
 
 
@@ -97,5 +92,21 @@ exports.unFollowUser = async(req,res,next) =>{
     else{
         console.log("sonething is missing")
         res.json({result:"unfollow doesnt work"})
+    }
+}
+
+exports.userFollowers = async(req,res,next) =>{
+    const userId = req.body.userId
+    //console.log(userId)
+    const user = await User.findById(userId)
+    if(user){
+        const setPromises = user.followers.map((value) => {
+            return User.findById(value)
+        })
+
+        const userFollowers = await Promise.all(setPromises)
+        //console.log(userFollowers)
+
+        res.status(201).json({result:userFollowers})
     }
 }

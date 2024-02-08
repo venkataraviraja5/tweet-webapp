@@ -6,5 +6,6 @@ router.post("/profile/:id",profile.profileDetails)
 router.post("/userinfo",profile.userInfoLikeAndFollow)
 router.post("/follow",profile.followUser)
 router.post("/unfollow",profile.unFollowUser)
+router.post("/userfollowers",profile.userFollowers)
 
 module.exports = router

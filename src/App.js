@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import Feed from "./components/Feed";
+import PostDetails from "./components/PostDetails";
+import Profile from "./components/Profile";
+import store from "./components/UserContext";
+import { useState } from "react";
+import Followers from "./components/Followers";
 
 function App() {
+  const appRouter = createBrowserRouter([
+    {
+      path:"/",
+      element: <Navbar />,
+      children:[
+        {
+          path:"/",
+          element:<Feed />
+        },
+        {
+          path:"/login",
+          element: <Login />
+        },
+        {
+          path:"/signup",
+          element:<SignUp />
+        },
+        {
+          path:"/q/:id",
+          element:<PostDetails />
+        },
+        {
+          path:"/:id",
+          element:<Profile />
+        },
+        {
+          path:"/followers",
+          element:<Followers />
+        }
+      ]
+    }
+  ])
+
+  const[cookieObj,setCookieObj] = useState(false)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <store.Provider value={{
+          cookieObj:cookieObj,
+          setCookieObj:setCookieObj
+        }}>
+        <RouterProvider router={appRouter}/>
+        </store.Provider>
+ 
+        
     </div>
   );
 }
