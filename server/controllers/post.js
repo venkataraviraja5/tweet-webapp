@@ -5,10 +5,12 @@ exports.postCreatePost = async(req,res,next) => {
     const content = req.body.content
     const username = req.body.username
     const userid = req.body.userid
-  //  console.log(content)
+    const imageUrl = req.file ? req.file.path : null
+
+    console.log("imageurl",imageUrl)
     const newPost = new PostSchema({
         content:content,
-        imageUrl:"url",
+        imageUrl:imageUrl,
         username:username,
         likes:0,
         comments:[],
@@ -100,5 +102,26 @@ exports.likepost = async(req,res,next) =>{
     }
     else{
         res.json({result:"not Liked"})
+    }
+  }
+
+  exports.delete =async (req,res,next) =>{
+    const id = req.body.postId
+    const userId = req.body.userId
+    //console.log(userId)
+
+    const post = await PostSchema.deleteOne({_id : id})
+    const user = await User.findById(userId)
+    //console.log("user",user)
+    
+    if(post.acknowledged === true && user){
+      //console.log(post.acknowledged)
+      user.posts = user.posts.filter(value => value != id)
+      await user.save()
+      res.status(201).json({result:"delted succesfull"})
+      
+    }
+    else{
+      res.json({result:"not deleted"})
     }
   }

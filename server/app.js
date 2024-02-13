@@ -6,10 +6,36 @@ const auth = require("./routes/auth")
 const postDetails = require("./routes/post")
 const profile = require("./routes/profile")
 const cors = require("cors")
-
-app.use(bodyParser.json())
+const path = require('path')
+const multer = require("multer")
 
 app.use(cors())
+
+const fileStorage = multer.diskStorage({
+    destination:(req,file,cb) =>{
+        cb(null,path.resolve(__dirname, 'images'))
+    },
+    filename:(req,file,cb) =>{
+        cb(null, file.originalname)
+    }
+})
+
+const fileFilter = (req,file,cb) =>{
+    if(
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpeg'
+    ){
+        cb(null,true)
+    }
+    else{
+        cb(null,false)
+    }
+}
+
+app.use(bodyParser.json())
+app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('image'))
+app.use('/images',express.static(path.join(__dirname,'images')))
 
 app.use(auth)
 app.use(postDetails)

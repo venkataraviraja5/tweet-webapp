@@ -1,9 +1,13 @@
 const User = require("../models/auth")
 const bcrypt = require("bcryptjs")
+const {validationResult} = require("express-validator")
 
 exports.signup = async(req,res,next) => {
+
+    const errors = validationResult(req)
+    //console.log("emauil",errors.isEmpty())
  
-    try{
+    if(errors.isEmpty() === true){
         const email = req.body.email
         //console.log(email)
     
@@ -26,8 +30,9 @@ exports.signup = async(req,res,next) => {
         }
         
     }
-    catch(err){
-        console.log(err)
+    else{
+        //console.log(err)
+        res.json({result:"Please Enter Email"})
     }
       
     }

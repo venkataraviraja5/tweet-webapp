@@ -96,9 +96,9 @@ exports.unFollowUser = async(req,res,next) =>{
 }
 
 exports.userFollowers = async(req,res,next) =>{
-    const userId = req.body.userId
+    const {id} = req.params
     //console.log(userId)
-    const user = await User.findById(userId)
+    const user = await User.findById(id)
     if(user){
         const setPromises = user.followers.map((value) => {
             return User.findById(value)
@@ -109,4 +109,41 @@ exports.userFollowers = async(req,res,next) =>{
 
         res.status(201).json({result:userFollowers})
     }
+}
+
+exports.userFollowing = async(req,res,next) =>{
+    const {id} = req.params
+    //console.log(userId)
+    const user = await User.findById(id)
+    if(user){
+        const setPromises = user.following.map((value) => {
+            return User.findById(value)
+        })
+
+        const userFollowers = await Promise.all(setPromises)
+        //console.log(userFollowers)
+
+        res.status(201).json({result:userFollowers})
+    }
+}
+
+exports.profilelikedPosts = async(req,res,next) =>{
+    const {id} = req.params
+
+   const user = await User.findById(id)
+
+   if(user){
+    //console.log(user.likedPosts)
+    const setPromies = user.likedPosts.map((value) => {
+        return Posts.findById(value)
+    })
+
+    const posts = await Promise.all(setPromies)
+    //console.log(posts)
+    res.status(201).json({likedposts:posts})
+   }
+   else{
+    res.json({result:"not fetched"})
+   }
+
 }
