@@ -16,7 +16,7 @@ const FlashMessage = ({message}) => {
 
   return (
     <div>
-      <p style={{color:"red"}}>{flashMessage}</p>
+      <p style={{color:"red",width:"auto"}}>{flashMessage}</p>
     </div>
   )
 }

@@ -7,5 +7,6 @@ router.get("/fetchposts",post.fetchPosts)
 router.post("/postdetails/:id",post.postDetails)
 router.post("/addcomment",post.addComment)
 router.post('/like',post.likepost)
+router.post("/delete",post.delete)
 
 module.exports = router

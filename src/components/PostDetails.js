@@ -92,9 +92,14 @@ const PostDetails = () => {
         </div>
         <div>
             <p>{postDetails.content}</p>
-            <img src={`http://localhost:8080/images/${fileNameWithoutExtension}.png` || `http://localhost:8080/images/${fileNameWithoutExtension}.jpg` || 
+            {
+                fileNameWithoutExtension ?
+                <img src={`http://localhost:8080/images/${fileNameWithoutExtension}.png` || `http://localhost:8080/images/${fileNameWithoutExtension}.jpg` || 
       `http://localhost:8080/images/${fileNameWithoutExtension}.jpeg`
     }  className='postImage'/>
+    :
+    null
+            }
         </div>
       </div>
       <FlashMessage message={flashMessage}/>

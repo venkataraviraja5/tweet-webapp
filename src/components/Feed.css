@@ -1,5 +1,5 @@
 .home{
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,6 +29,10 @@
         justify-content: center;
         align-items: center;
         gap: 5px;
+    }
+
+    .home{
+        margin-top: 0px;
     }
   }
 

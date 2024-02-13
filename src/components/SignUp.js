@@ -48,8 +48,8 @@ const SignUp = () => {
     }
   return (
     <div className='homeAuth'>
-    <div className='auth-page'>
       <FlashMessage message={flashMessage}/>
+    <div className='auth-page'>
       <input type='text' placeholder='Enter Your EmailId' onChange={(e) => setEmail(e.target.value)}/>
       <input type='text' placeholder='Enter Your Username' onChange={(e) => setUsername(e.target.value)}/>
       <input type='text' placeholder='Enter Your Password' onChange={(e) => setPassword(e.target.value)}/>

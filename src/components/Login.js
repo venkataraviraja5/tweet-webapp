@@ -66,6 +66,7 @@ const Login = () => {
 
   return (
     <div className='homeAuth'>
+         <FlashMessage message={flashMessage}/>
         {
             logout ?
             <div>
@@ -73,7 +74,6 @@ const Login = () => {
             </div>
             :
             <div className='auth-page'>
-                    <FlashMessage message={flashMessage}/>
                     <input type='text' placeholder='Enter Your Email Address'
                       onChange={(e) => setEmail(e.target.value)}
                     />
