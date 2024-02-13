@@ -27,7 +27,7 @@ const SignUp = () => {
 
       if(fetchUrl.ok){
           const result = await fetchUrl.json()
-          console.log(result)
+          //console.log(result)
           if(result.result === true){
              navigate("/login")
           }
