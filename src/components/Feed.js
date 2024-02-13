@@ -1,35 +1,40 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Cookies from 'js-cookie'
 import { useState,useEffect } from 'react'
 import PostCard from './PostCard'
 import "./Feed.css"
 import FlashMessage from './FlashMessage'
+import Button from 'react-bootstrap/Button';
+import { UseSelector, useSelector } from 'react-redux'
 
 const Feed = () => {
     const[content,setContent] = useState('')
     const[imageUrl,setImageUrl] = useState('')
     const[feed,setFeed] = useState([])
     const[cookieValue,setCookieValue] = useState(false)
-    const[cookie,setCookie] = useState({})
+    //const[cookie,setCookie] = useState({})
     const[flashMessage,setFlashMessage] = useState('')
+
+    const cookie = useSelector(store => store.app.cookieObj)
+
   
     const handleFileChange = (e) => {
       const selectedImage = e.target.files[0]
-      //console.log(selectedImage)
+     // console.log(selectedImage)
+      setImageUrl(selectedImage)
     };
   
       const createPost = async() =>{
-         if(cookieValue){
+        const formData = new FormData()
+        formData.append('content',content)
+        formData.append('username',cookie.username)
+        formData.append('userid' ,cookie._id )
+        formData.append('image' , imageUrl)
+
+         if(cookie._id){
           const fetchUrl = await fetch("http://localhost:8080/createpost",{
             method:"POST",
-            headers:{
-              "Content-Type" : "application/json"
-            },
-            body:JSON.stringify({
-              content:content,
-              username:cookie.username,
-              userid:cookie._id
-            })
+            body:formData
         })
   
         if(fetchUrl.ok){
@@ -40,9 +45,13 @@ const Feed = () => {
          }
          else{
           //console.log("login first")
-          setFlashMessage('Login First')
+          setFlashMessage('Please Login')
+          setTimeout(() => {
+            setFlashMessage('')
+          }, 2000);
          }
-
+          setContent('')
+          setImageUrl('')
          await fetchPosts()
       }
 
@@ -54,45 +63,32 @@ const Feed = () => {
         
       }
   
-      const getCookie = () =>{
-        const cookievalue = Cookies.get('myCookie')
-        if(cookievalue){
-         setCookieValue(true)
-         const retrievedObject = JSON.parse(cookievalue);
-         setCookie(retrievedObject)
-        // console.log(retrievedObject);
-        }
-        else{
-         setCookie(false)
-        }
-      }
 
       useEffect(() => {
         fetchPosts()
        // console.log(feed)
       },[])
-
-      useEffect(() => {
-        getCookie()
-      },[Cookies.get('myCookie')])
   
   return (
    
       <div className='home'>
+         <FlashMessage message={flashMessage}/>
       <div className='inputbox'>
-           <FlashMessage message={flashMessage}/>
            <input type='text' placeholder='Enter your message'
+             value={content}
              onChange={(e) => setContent(e.target.value)}
            /> 
            <input type='file'
+          
+            placeholder='select Your Image'
             onChange={handleFileChange}
            />
-           <button onClick={createPost}>Post</button>
+           <Button variant="success"  onClick={createPost}>Tweet</Button>{' '}
       </div>
       <div className='posts'>
         
         {
-          feed.length > 0 ? 
+          feed ? 
           <div>
              {
               feed.map((value) => (
@@ -101,7 +97,7 @@ const Feed = () => {
              }
           </div>
           :
-          <h1>Loading</h1>
+          <h1>Loading..</h1>
         }
       </div>
     </div>

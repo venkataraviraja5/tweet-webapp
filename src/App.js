@@ -5,9 +5,13 @@ import SignUp from "./components/SignUp";
 import Feed from "./components/Feed";
 import PostDetails from "./components/PostDetails";
 import Profile from "./components/Profile";
-import store from "./components/UserContext";
-import { useState } from "react";
+import { Store } from "./components/utils/Store";
+import { useEffect, useState } from "react";
 import Followers from "./components/Followers";
+import Cookies from "js-cookie";
+import { Provider } from "react-redux";
+import Following from "./components/Following";
+import LikedPosts from "./components/LikedPosts";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -36,26 +40,27 @@ function App() {
           element:<Profile />
         },
         {
-          path:"/followers",
+          path:"/followers/:id",
           element:<Followers />
+        },
+        {
+          path:"/following/:id",
+          element:<Following />
+        },
+        {
+          path:"/likedposts/:id",
+          element:<LikedPosts />
         }
       ]
     }
   ])
 
-  const[cookieObj,setCookieObj] = useState(false)
-
-
   return (
     <div>
-        <store.Provider value={{
-          cookieObj:cookieObj,
-          setCookieObj:setCookieObj
-        }}>
+        <Provider store={Store}>
         <RouterProvider router={appRouter}/>
-        </store.Provider>
+        </Provider>
  
-        
     </div>
   );
 }

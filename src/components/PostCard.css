@@ -17,9 +17,14 @@
     color: inherit;
 }
 
+.like{
+    margin-top: -5px;
+}
+
 .postcard{
     background-color: aqua;
     width: 100%;
+    font-style: normal;
 }
 .postcard-head{
     display: flex;
@@ -33,9 +38,19 @@ p:hover{
     cursor: pointer;
 }
 
+b:hover{
+    cursor: pointer;
+}
+
+
 .link{
  text-decoration: none;
  color: inherit;
+}
+
+.postImage{
+    height: 200px;
+    width: 200px;
 }
 
 

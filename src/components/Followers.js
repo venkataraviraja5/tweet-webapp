@@ -1,43 +1,49 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import Cookies from 'js-cookie'
+import "./FollowersAndFollowing.css"
+import { Link, useParams } from 'react-router-dom'
 
 const Followers = () => {
-    const[cookie,setCookie] = useState({})
+   
     const[followers,setFollowers] = useState([])
 
+    const{id} = useParams()
+
     const followersFun = async() =>{
-        const fetchUrl = await fetch("http://localhost:8080/userfollowers",{
+        const fetchUrl = await fetch("http://localhost:8080/userfollowers/" + id,{
             method:"POST",
             headers:{
                 "Content-Type" : "application/json"
             },
-            body:JSON.stringify({
-                userId : cookie._id
-            })
         })
         if(fetchUrl.ok){
             const result = await fetchUrl.json()
-            console.log(result)
+           // console.log(result.result)
             setFollowers(result.result)
         }
     }
 
-
-    useEffect(() => {
-        setCookie(JSON.parse(Cookies.get("myCookie")))
-
-    },[Cookies.get("myCookie")])
-
     useEffect(() =>{
-        console.log(cookie)
         followersFun()
-    },[followers])
+    },[])
 
   return (
-    <div>
+    <div className='main-page'>
       <h1>Followers</h1>
+      <div>
+      {
+        followers.length > 0 ?
+        <div>
+           {
+            followers.map((item) => (
+                <Link to={"/" + item._id} className='link' key={item._id} ><p className='followname'>{item.username}</p></Link>
+            ))
+           }
+        </div>
+        :<p>No Followers</p>
+      }
+      </div>
     </div>
   )
 }

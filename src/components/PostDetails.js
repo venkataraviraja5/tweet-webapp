@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import Cookies from 'js-cookie'
 import FlashMessage from './FlashMessage'
+import { Button } from 'react-bootstrap'
 
 const PostDetails = () => {
     const {id} = useParams()
@@ -17,6 +18,10 @@ const PostDetails = () => {
 
      const dateObject = new Date(postDetails.createdAt);
     const formattedDate = dateObject.toLocaleDateString();
+
+    const filePath = postDetails.imageUrl || "";
+    const fileName = filePath.replace(/^.*[\\\/]/, '');
+    const fileNameWithoutExtension = fileName.replace(/\.[^/.]+$/, '');
 
     const postDetailsPage = async() =>{
         const fetchUrl = await fetch(`http://localhost:8080/postdetails/${id}`,{
@@ -52,8 +57,11 @@ const PostDetails = () => {
             })
         }
         else{
-            console.log("Login first")
-            setFlashMessage("Login First")
+           // console.log("Login first")
+            setFlashMessage("Please Login")
+            setTimeout(() => {
+                setFlashMessage('')
+              }, 2000);
         }
     }
     
@@ -79,18 +87,21 @@ const PostDetails = () => {
     <div className='postDetailsPage'>
       <div className='postDetailsCard'>
         <div className='username-date'>
-            <p>{postDetails.username}</p>
+            <b>{postDetails.username}</b>
             <p>{formattedDate} </p>
         </div>
         <div>
-            <h1>{postDetails.content}</h1>
+            <p>{postDetails.content}</p>
+            <img src={`http://localhost:8080/images/${fileNameWithoutExtension}.png` || `http://localhost:8080/images/${fileNameWithoutExtension}.jpg` || 
+      `http://localhost:8080/images/${fileNameWithoutExtension}.jpeg`
+    }  className='postImage'/>
         </div>
       </div>
       <FlashMessage message={flashMessage}/>
       <div className='commentbox'>
         <input type='text' placeholder='Enter Your Comment'
          onChange={(e) => setComment(e.target.value)}
-        /> <button onClick={addComment}>Comment</button>
+        />  <Button variant="success" onClick={addComment}>Comment</Button>{' '}
       </div>
       <div>
        {
@@ -106,7 +117,7 @@ const PostDetails = () => {
             }
         </div>
         :
-        <p>No coments</p>
+        <p>No comments yet!!!</p>
        }
       </div>
     </div>
