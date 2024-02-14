@@ -25,7 +25,7 @@ const PostCard = ({post,fetchPosts}) => {
     const likeBtn = async() =>{
         //console.log(post._id)
           if(cookieValue === true){
-            const fetchUrl = await fetch('http://localhost:8080/like',{
+            const fetchUrl = await fetch('https://tweet-web.onrender.com/like',{
                 method:"POST",
                 headers:{
                     "Content-Type" : "application/json"
@@ -54,7 +54,7 @@ const PostCard = ({post,fetchPosts}) => {
        }
     
        const fetchUserInfo = async() =>{
-        const fetchUrl  = await fetch("http://localhost:8080/userinfo",{
+        const fetchUrl  = await fetch("https://tweet-web.onrender.com/userinfo",{
             method:"POST",
             headers:{
                 "Content-Type" : "application/json"
@@ -77,7 +77,7 @@ const PostCard = ({post,fetchPosts}) => {
     
        const followBtn = async() =>{
         if(cookie._id != post.userId && cookieValue === true){
-              const fetchUrl = await fetch("http://localhost:8080/follow",{
+              const fetchUrl = await fetch("https://tweet-web.onrender.com/follow",{
                 method:"POST",
                 headers:{
                     "Content-Type" : "application/json"
@@ -102,7 +102,7 @@ const PostCard = ({post,fetchPosts}) => {
     
        const unFollowBtn = async() =>{
     
-            const fetchUrl = await fetch("http://localhost:8080/unfollow",{
+            const fetchUrl = await fetch("https://tweet-web.onrender.com/unfollow",{
                 method:"POST",
                 headers:{
                     "Content-Type" : "application/json"
@@ -117,7 +117,7 @@ const PostCard = ({post,fetchPosts}) => {
        }
 
        const deleteFun = async() =>{
-         const fetchUrl = await fetch("http://localhost:8080/delete",{
+         const fetchUrl = await fetch("https://tweet-web.onrender.com/delete",{
             method:"POST",
             headers:{
                 "Content-Type" :"application/json"
@@ -181,8 +181,7 @@ const PostCard = ({post,fetchPosts}) => {
    {
     fileNameWithoutExtension ?
     <div>
-        <img src={`http://localhost:8080/images/${fileNameWithoutExtension}.png` || `http://localhost:8080/images/${fileNameWithoutExtension}.jpg` || 
-      `http://localhost:8080/images/${fileNameWithoutExtension}.jpeg`
+        <img src={post.imageUrl
     }  className='postImage'/>
     </div>
     :

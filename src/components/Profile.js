@@ -19,7 +19,7 @@ const Profile = () => {
 
     const profileDetails = async() =>{
       if(id != undefined){
-        const fetchUrl = await fetch("http://localhost:8080/profile/" + id,{
+        const fetchUrl = await fetch("https://tweet-web.onrender.com/profile/" + id,{
           method:"POST",
           headers:{
               "Content-Type" : "application/json"

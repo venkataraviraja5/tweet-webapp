@@ -24,7 +24,7 @@ const PostDetails = () => {
     const fileNameWithoutExtension = fileName.replace(/\.[^/.]+$/, '');
 
     const postDetailsPage = async() =>{
-        const fetchUrl = await fetch(`http://localhost:8080/postdetails/${id}`,{
+        const fetchUrl = await fetch(`https://tweet-web.onrender.com/postdetails/${id}`,{
             method:"POST",
             headers:{
                 "Content-Type" : "application/json"
@@ -44,7 +44,7 @@ const PostDetails = () => {
 
     const addComment = async() => {
         if(cookieStateValue === true){
-            const fetchUrl = await fetch("http://localhost:8080/addcomment",{
+            const fetchUrl = await fetch("https://tweet-web.onrender.com/addcomment",{
                 method:"POST",
                 headers:{
                     "Content-Type" : "application/json"
@@ -94,8 +94,8 @@ const PostDetails = () => {
             <p>{postDetails.content}</p>
             {
                 fileNameWithoutExtension ?
-                <img src={`http://localhost:8080/images/${fileNameWithoutExtension}.png` || `http://localhost:8080/images/${fileNameWithoutExtension}.jpg` || 
-      `http://localhost:8080/images/${fileNameWithoutExtension}.jpeg`
+                <img src={`https://tweet-web.onrender.com/images/${fileNameWithoutExtension}.png` || `https://tweet-web.onrender.com/images/${fileNameWithoutExtension}.jpg` || 
+      `https://tweet-web.onrender.com/images/${fileNameWithoutExtension}.jpeg`
     }  className='postImage'/>
     :
     null

@@ -13,7 +13,7 @@ const SignUp = () => {
 
     const signup = async() =>{
       if(email.length > 0 && password.length > 0 && username.length > 0){
-        const fetchUrl = await fetch("http://localhost:8080/signup",{
+        const fetchUrl = await fetch("https://tweet-web.onrender.com/signup",{
           method:"POST",
           headers:{
               "Content-Type" : "application/json"

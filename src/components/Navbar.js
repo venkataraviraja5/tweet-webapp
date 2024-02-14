@@ -58,7 +58,7 @@ const Navbar = () => {
       <div className='sidebar'>
         <Link to={"/"} className='link'><p>Home</p></Link>
         <Link to={"/" + cookie._id } className='link'><p>Profile</p></Link>
-        <Link to={"/likedposts/" + cookie._id} className='link'><p>Liked Posts</p></Link>
+        <Link to={"/likedposts/" + cookie._id} className='link'><p>Liked Tweets</p></Link>
       </div>
       </div>
       :

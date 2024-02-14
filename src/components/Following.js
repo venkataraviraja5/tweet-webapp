@@ -10,7 +10,7 @@ const Following = () => {
     const{id} = useParams()
 
     const followingFun = async() =>{
-        const fetchUrl = await fetch("http://localhost:8080/userfollowing/" + id,{
+        const fetchUrl = await fetch("https://tweet-web.onrender.com/userfollowing/" + id,{
             method:"POST",
             headers:{
                 "Content-Type" : "application/json"

@@ -11,7 +11,7 @@ const LikedPosts = () => {
     const[likedPosts,setLikedPosts] = useState({})
 
     const likedPostsFun = async() =>{
-        const fetchUrl = await fetch("http://localhost:8080/profilelikedposts" + id,{
+        const fetchUrl = await fetch("https://tweet-web.onrender.com/profilelikedposts" + id,{
             method:"POST",
             headers:{
                 "Content-Type" : "application/json"
@@ -21,7 +21,7 @@ const LikedPosts = () => {
         })
         if(fetchUrl.ok){
             const result = await fetchUrl.json()
-            console.log(result.likedposts)
+           // console.log(result.likedposts)
             setLikedPosts(result.likedposts)
         }
     }
@@ -46,7 +46,7 @@ const LikedPosts = () => {
             }
         </div>
         :
-        null
+        <p>Zero  Tweets Liked</p>
       }
     </div>
   )
