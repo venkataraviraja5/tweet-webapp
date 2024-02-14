@@ -1,13 +1,26 @@
 const PostSchema = require("../models/post")
 const User = require("../models/auth")
+const cloudinary = require("../utils/cloudinary")
 
 exports.postCreatePost = async(req,res,next) => {
     const content = req.body.content
     const username = req.body.username
     const userid = req.body.userid
-    const imageUrl = req.file ? req.file.path : null
+    let imageUrl = req.file ? req.file.path : null
 
     console.log("imageurl",imageUrl)
+
+    try{
+      const res = await cloudinary.uploader.upload(imageUrl,{
+        folder:"products"
+      })
+      console.log(res)
+      imageUrl = res.url
+    }
+    catch(err){
+      console.log("Error",err)
+    }
+
     const newPost = new PostSchema({
         content:content,
         imageUrl:imageUrl,

@@ -88,7 +88,7 @@ const Feed = () => {
       <div className='posts'>
         
         {
-          feed ? 
+          feed.length > 0 ? 
           <div>
              {
               feed.map((value) => (
@@ -97,7 +97,7 @@ const Feed = () => {
              }
           </div>
           :
-          <h1>Loading..</h1>
+          <h1 className='tag'>Loading..</h1>
         }
       </div>
     </div>
