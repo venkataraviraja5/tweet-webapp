@@ -38,5 +38,5 @@ app.listen(8080,()=>{
 })
 
 mongoose.connect(
-    ""
+    "mongodb+srv://raviraja2000:raviraja2000@cluster0.eabcdxj.mongodb.net/tweet"
 ).then(() => console.log("connected")).catch((err) => console.log("not connected"))
